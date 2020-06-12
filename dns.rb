@@ -524,6 +524,10 @@ def handle_http_connection(connection)
 		
 		if params.include? "myip"
 			ip_as_string = CGI::unescape params["myip"].first
+			if ip_as_string.length<5
+				ip_as_string = connection.peeraddr.last
+				puts ip_as_string
+			end
 		else
 			# If no myip parameter was provided directly use the public IP of the client connection
 			ip_as_string = connection.peeraddr.last
